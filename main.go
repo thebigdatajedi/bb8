@@ -181,17 +181,20 @@ func main() {
 				//1. "bundle_app"
 				//2. "appName"
 				//3. "projectRootDir"
+				//4. "newBinaryName"
 				if true {
 					CreateAppBundleStructure(os.Args[2], infoPListFileContent)
 					//shopping list:
-					//1. go back to home dir
-					//2. run from the command line the following command:
+					//[]create a function that will take the project root dir
+					//[] run from the command line the following command::
 					//go build -o ${appName}.app/Contents/MacOS/${YourGoBinary} main.go
+					//Additonal Research Notes::
 					//This guy is saying to bootstrap the project root dir by passing a
 					//a project root dir and then he shares some source that makes it look like he's
 					//using something called a flag and it looks like the way it can be used is to
 					//ask the user for parameters in the command line.
 					//https://stackoverflow.com/questions/47531760/how-to-get-the-root-path-of-the-project
+					//Copilot Notes::
 					//https://stackoverflow.com/questions/28322997/how-to-pass-arguments-to-go-program
 					//The top one is the one I found the second one is one that Copilot suggested.
 					//This is where I left off.
