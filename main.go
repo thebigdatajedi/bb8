@@ -177,7 +177,7 @@ func main() {
 			}
 		} else if os.Args[1] == "bundle_app" {
 			//Create the app bundle
-			if numOfParameters == 3 { //For this code to run the 3 parameters in args are:
+			if numOfParameters == 4 { //For this code to run the 4 parameters in args are:
 				//1. "bundle_app"
 				//2. "appName"
 				//3. "projectRootDir"
@@ -185,7 +185,7 @@ func main() {
 				if true {
 					CreateAppBundleStructure(os.Args[2], infoPListFileContent)
 					//shopping list:
-					//[]create a function that will take the project root dir
+					//[]create a function that will take appName, projectRootDir, and newBinaryName
 					//[] run from the command line the following command::
 					//go build -o ${appName}.app/Contents/MacOS/${YourGoBinary} main.go
 					//Additonal Research Notes::
