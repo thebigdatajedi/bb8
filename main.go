@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 	"reflect"
 	"strconv"
+	"strings"
 )
 
 func CreateProjectRootDir(dirName string) {
@@ -128,11 +129,21 @@ func CreateAppBundleStructure(appNameParam string, projectRootDirParam string, n
 	//cd back to project root dir
 	err := os.Chdir(projectRootDirParam)
 	StandardErrHandler(err)
-	//now run the command line tool to create the binary
-	newBinaryNameTargetPath := filepath.Join(appNameParam, "Contents", "MacOS", newBinaryNameParam)
-	sourceFileToBeBuilt := filepath.Join(newBinaryNameTargetPath, " main.go")
-	cmd := exec.Command("go", "build", "-o", sourceFileToBeBuilt)
+
+	BuildApp(appNameParam, newBinaryNameParam, err)
 } //CreateAppBundleStructure
+
+func BuildApp(appNameParam string, newBinaryNameParam string, err error) {
+	//now run the command line tool to create the binary
+	var cmd Cmd
+	newBinaryNameTargetPath := filepath.Join(appNameParam, "Contents", "MacOS", newBinaryNameParam)
+	cmd = exec.Command("go", "build", "-o", newBinaryNameTargetPath)
+	cmd.Stdin = strings.NewReader("main.go")
+	var out strings.Builder
+	cmd.Stdout = &out
+	err = cmd.Run()
+	StandardErrHandler(err)
+} //BuildApp
 
 func Usage() {
 	log.Println("USAGE::")
