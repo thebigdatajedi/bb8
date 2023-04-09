@@ -4,6 +4,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"reflect"
 	"strconv"
@@ -97,8 +98,8 @@ func copyResource(sourceFile string, targetDir string) {
 	StandardErrHandler(err)
 } //end of copyResource
 
-func CreateAppBundleStructure(appName string, pListcontent InfoPListFileContent) {
-	appBundleStructure := []string{appName, "Contents", "MacOS", "Resources"}
+func CreateAppBundleStructure(appNameParam string, projectRootDirParam string, newBinaryNameParam string, pListcontentParam InfoPListFileContent) {
+	appBundleStructure := []string{appNameParam, "Contents", "MacOS", "Resources"}
 	for _, s := range appBundleStructure {
 		err := os.Mkdir(s, 0750)
 		if err != nil && !os.IsExist(err) {
@@ -110,7 +111,7 @@ func CreateAppBundleStructure(appName string, pListcontent InfoPListFileContent)
 		}
 
 		if s == "Contents" {
-			CreateInfoPlistFile(pListcontent)
+			CreateInfoPlistFile(pListcontentParam)
 		}
 
 		if s == "MacOS" {
@@ -123,6 +124,14 @@ func CreateAppBundleStructure(appName string, pListcontent InfoPListFileContent)
 			copyResource(sourceFile, targetDir)
 		}
 	} //appBundleStructure for loop
+	//the file structure is built
+	//cd back to project root dir
+	err := os.Chdir(projectRootDirParam)
+	StandardErrHandler(err)
+	//now run the command line tool to create the binary
+	newBinaryNameTargetPath := filepath.Join(appNameParam, "Contents", "MacOS", newBinaryNameParam)
+	sourceFileToBeCompiled := filepath.Join(newBinaryNameTargetPath, " main.go")
+	cmd := exec.Command("go", "build", "-o", sourceFileToBeCompiled)
 } //CreateAppBundleStructure
 
 func Usage() {
@@ -176,17 +185,29 @@ func main() {
 				CreateProjectRootDir(os.Args[2])
 			}
 		} else if os.Args[1] == "bundle_app" {
+			var appName string
+			var projectRootDir string
+			var newBinaryName string
 			//Create the app bundle
 			if numOfParameters == 4 { //For this code to run the 4 parameters in args are:
 				//1. "bundle_app"
 				//2. "appName"
 				//3. "projectRootDir"
 				//4. "newBinaryName"
-				if true {
-					CreateAppBundleStructure(os.Args[2], infoPListFileContent)
+				if true { //if bundle_app request is not empty
+					if true { //if appName is not empty
+						appName := os.Args[2]
+					}
+					if true { //if projectRootDir is not empty
+						projectRootDir := os.Args[3]
+					}
+					if true { //if newBinaryName is not empty
+						newBinaryName := os.Args[4]
+					}
+					CreateAppBundleStructure(appName, projectRootDir, newBinaryName, infoPListFileContent)
 					//shopping list:
-					//[]create a function that will take appName, projectRootDir, and newBinaryName
-					//[] run from the command line the following command::
+					//[*]create a function that will take appName, projectRootDir, and newBinaryName
+					//[*] run from the command line the following command::
 					//go build -o ${appName}.app/Contents/MacOS/${YourGoBinary} main.go
 					//Additonal Research Notes::
 					//This guy is saying to bootstrap the project root dir by passing a
@@ -197,7 +218,6 @@ func main() {
 					//Copilot Notes::
 					//https://stackoverflow.com/questions/28322997/how-to-pass-arguments-to-go-program
 					//The top one is the one I found the second one is one that Copilot suggested.
-					//This is where I left off.
 				}
 			}
 		} else {
