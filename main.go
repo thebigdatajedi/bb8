@@ -130,8 +130,8 @@ func CreateAppBundleStructure(appNameParam string, projectRootDirParam string, n
 	StandardErrHandler(err)
 	//now run the command line tool to create the binary
 	newBinaryNameTargetPath := filepath.Join(appNameParam, "Contents", "MacOS", newBinaryNameParam)
-	sourceFileToBeCompiled := filepath.Join(newBinaryNameTargetPath, " main.go")
-	cmd := exec.Command("go", "build", "-o", sourceFileToBeCompiled)
+	sourceFileToBeBuilt := filepath.Join(newBinaryNameTargetPath, " main.go")
+	cmd := exec.Command("go", "build", "-o", sourceFileToBeBuilt)
 } //CreateAppBundleStructure
 
 func Usage() {
