@@ -171,7 +171,7 @@ func Usage() {
 	fmt.Println("1. cd into already existing <project_name> dir and type::")
 	fmt.Println("2. bb8 organize_fapi_project - 'organize fap project'.")
 	fmt.Println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-	fmt.Println("BUILD GUI APP for macOS::")
+	fmt.Println("BUNDLE APP for macOS::")
 	fmt.Println("1. bb8 bundle")
 	fmt.Println("2. Respond to the questions asked by the program.")
 	fmt.Println("3. The program will create a .app bundle in the current directory.")
