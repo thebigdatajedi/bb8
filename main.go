@@ -149,10 +149,16 @@ func BuildApp(appNameParam string, newBinaryNameParam string, err error) {
 
 func Usage() {
 	log.Println("USAGE::")
+	log.Println("CREATE FastAPI project::")
 	log.Println("cd into directory where you want to create your project and type::")
-	log.Println("fapi oi <project_name> the oi parameter stands for 'create project from outside in'.")
-	log.Println("or cd into already existing <project_name> dir and type:: fapi io which stands for " +
+	log.Println("main create_fapi_project <project_name> the oi stands for 'create project from outside in'.")
+	log.Println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+	log.Println("ORGANIZE existing FastAPI project::")
+	log.Println("or cd into already existing <project_name> dir and type:: main organize_fapi_project which stands for " +
 		"'create project from inside out'.")
+	log.Println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+	log.Println("BUILD APP for macOS::")
+	log.Println("main buildApp <appName> <projectRootDir> <newBinaryName>")
 	log.Println("No parameters passed reports Usage.")
 	return
 } //end of Usage
