@@ -135,13 +135,15 @@ func CreateAppBundleStructure(appNameParam string, projectRootDirParam string, n
 
 func BuildApp(appNameParam string, newBinaryNameParam string, err error) {
 	//now run the command line tool to create the binary
-	var cmd Cmd
 	newBinaryNameTargetPath := filepath.Join(appNameParam, "Contents", "MacOS", newBinaryNameParam)
-	cmd = exec.Command("go", "build", "-o", newBinaryNameTargetPath)
+	cmd := exec.Command("go", "build", "-o", newBinaryNameTargetPath)
 	cmd.Stdin = strings.NewReader("main.go")
 	var out strings.Builder
 	cmd.Stdout = &out
 	err = cmd.Run()
+	if err != nil {
+		log.Fatalf("Error in building the binary:%v\n" + err.Error())
+	}
 	StandardErrHandler(err)
 } //BuildApp
 
@@ -173,6 +175,10 @@ type InfoPListFileContent struct {
 } //end of InfoPListFileContent struct
 
 func main() {
+	var appName string
+	var projectRootDir string
+	var newBinaryName string
+	var appNameDotApp string
 
 	infoPListFileContent := InfoPListFileContent{
 		CFBundleDisplayName:           "MyApp",
@@ -195,27 +201,27 @@ func main() {
 			if true {
 				CreateProjectRootDir(os.Args[2])
 			}
-		} else if os.Args[1] == "bundle_app" {
-			var appName string
-			var projectRootDir string
-			var newBinaryName string
+		} else if os.Args[1] == "bundleApp" {
 			//Create the app bundle
 			if numOfParameters == 4 { //For this code to run the 4 parameters in args are:
-				//1. "bundle_app"
-				//2. "appName"
-				//3. "projectRootDir"
-				//4. "newBinaryName"
-				if true { //if bundle_app request is not empty
+				//1. "bundleApp" value
+				//2. "appName" variable
+				//3. "projectRootDir" variable
+				//4. "newBinaryName" variable
+				if true { //if bundleApp request is not empty
 					if true { //if appName is not empty
-						appName := os.Args[2]
+						appName = os.Args[2]
 					}
 					if true { //if projectRootDir is not empty
-						projectRootDir := os.Args[3]
+						projectRootDir = os.Args[3]
 					}
 					if true { //if newBinaryName is not empty
-						newBinaryName := os.Args[4]
+						newBinaryName = os.Args[4]
 					}
-					CreateAppBundleStructure(appName, projectRootDir, newBinaryName, infoPListFileContent)
+
+					appNameDotApp = appName + ".app"
+
+					CreateAppBundleStructure(appNameDotApp, projectRootDir, newBinaryName, infoPListFileContent)
 					//shopping list:
 					//[*]create a function that will take appName, projectRootDir, and newBinaryName
 					//[*] run from the command line the following command::
