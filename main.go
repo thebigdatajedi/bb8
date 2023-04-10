@@ -40,7 +40,8 @@ func CreateRootLevelPythonModules() {
 		StandardErrHandler(err)
 
 		log.Println("Python module created: " + rootLevelPythonModule.Name())
-		log.Println("Index completed in creation of root level Python modules: " + strconv.Itoa(i) + " out of " + strconv.Itoa(totalNumberOfRootLevelDirectoriesToBeCreated))
+		count := i + 1
+		log.Println("Index completed in creation of root level Python modules: " + strconv.Itoa(count) + " out of " + strconv.Itoa(totalNumberOfRootLevelDirectoriesToBeCreated))
 
 	}
 } //end of CreateRootLevelPythonModules
@@ -55,7 +56,8 @@ func CreateRootDirLevelFiles() {
 		err := rootLevelFile.Close()
 		StandardErrHandler(err)
 		log.Println("File created: " + rootLevelFile.Name())
-		log.Println(strconv.Itoa(i) + " out of " + strconv.Itoa(totalNumberOfRootLevelFiles) + " completed.")
+		count := i + 1
+		log.Println(strconv.Itoa(count) + " out of " + strconv.Itoa(totalNumberOfRootLevelFiles) + " completed.")
 	}
 } //end of CreateRootDirLevelFiles
 
@@ -199,11 +201,11 @@ func main() {
 
 	//parameter checking engine
 	numOfParameters := len(os.Args)
-	if numOfParameters > 0 {
-		if os.Args[1] == "create_fapi_project_io" {
+	if numOfParameters > 1 {
+		if os.Args[1] == "organize_fapi_project" {
 			CreateRootDirLevelFiles()
 			CreateRootLevelPythonModules()
-		} else if os.Args[1] == "create_fapi_project_oi" {
+		} else if os.Args[1] == "create_fapi_project" {
 			if true {
 				CreateProjectRootDir(os.Args[2])
 			}
@@ -243,8 +245,8 @@ func main() {
 					//The top one is the one I found the second one is one that Copilot suggested.
 				}
 			}
-		} else {
-			Usage()
 		}
+	} else {
+		Usage()
 	}
 } //end of main
