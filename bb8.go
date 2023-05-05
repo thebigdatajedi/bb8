@@ -12,6 +12,12 @@ import (
 	"strings"
 )
 
+//Todo: Create a function that will create a directory for the project.
+//Todo: Use that directory creating function to create a shell_scripts directory.
+//Todo: Use that directory creating function to create a sql dir.
+//Todo: Create a default License file.
+//Todo: Create a place holder for the README.md file.
+
 func CreateProjectRootDir(dirName string) {
 	//Create root directory for project
 	err := os.Mkdir(dirName, 0750)
