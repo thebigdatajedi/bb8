@@ -30,6 +30,9 @@ echo "$(date) - build complete"
 echo "$(date) - bootstrapping working dir started"
 working_dir=$( cd "$(dirname "${BASH_SOURCE[0]}")" || exit ; pwd -P )
 cd "$working_dir" || exit
+echo "$(date) - working_dir: $working_dir"
+other_working_dir=$(pwd)
+echo "$(date) - other_working_dir: $other_working_dir"
 echo "$(date) - bootstrapping working dir complete"
 
 echo "$(date) - deploy started"
